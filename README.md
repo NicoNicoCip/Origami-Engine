@@ -1,155 +1,79 @@
-# Origami Engine
+# Origami Engine - Core Runtime
 
-A GameMaker-inspired 2D game framework for TypeScript and the browser.
+This is the **engine branch** containing the Origami Engine source code, documentation, and build scripts.
 
-## Features
+## What's Here
 
-- **TypeScript-First**: Full type safety and IntelliSense support
-- **GameMaker-Style API**: Familiar `create()`, `step()`, `draw()` events and global functions
-- **Canvas 2D Rendering**: Hardware-accelerated 2D graphics
-- **No Dependencies**: Pure TypeScript, runs in any modern browser
-- **Template System**: Quick start with fresh or platformer templates
-- **Hot Reload**: Fast development with instant recompilation
+This branch contains all the engine internals that get copied to the `.origami/` folder in game projects.
 
-## Quick Start
+### Structure
 
-### 1. Clone the Repository
+```
+├── engine/
+│   └── src/                 # Engine TypeScript source code
+│       ├── core/            # GameEngine, GameObject, InstanceManager
+│       ├── rendering/       # Renderer, DrawingAPI
+│       ├── input/           # Keyboard, Mouse managers
+│       ├── collision/       # CollisionManager
+│       ├── rooms/           # RoomManager, Room types
+│       ├── sprites/         # SpriteManager, Sprite types
+│       ├── storage/         # SaveManager
+│       ├── debug/           # DebugManager
+│       ├── globals/         # Global function injectors
+│       ├── global.d.ts      # TypeScript global declarations
+│       └── index.ts         # Public API exports
+├── docs/                    # Full documentation (29 markdown files)
+├── build.cjs                # Standalone bundler (asset inlining)
+├── dev.cjs                  # Development server with hot reload
+├── serve.cjs                # Static file server
+├── update.cjs               # Engine update checker
+├── package.json             # Engine dependencies
+└── tsconfig.json            # TypeScript configuration
+```
+
+## For Engine Developers
+
+If you're contributing to the Origami Engine itself:
+
+### Building
+
+```bash
+npm install
+npx tsc
+```
+
+### Testing Changes
+
+1. Make changes to engine source code
+2. Copy this entire branch to a test game's `.origami/` folder
+3. Run the game and verify changes work
+
+### Documentation
+
+All documentation is in the `docs/` folder:
+- User guides in `docs/md/`
+- API reference in `docs/md/20-*.md` and `docs/md/21-*.md`
+
+When adding features, update relevant documentation files.
+
+## For Game Developers
+
+**Don't clone this branch directly for making games!**
+
+Instead, use the main branch installer:
 
 ```bash
 git clone https://github.com/NicoNicoCip/Origami-Engine.git
 cd Origami-Engine
-```
-
-### 2. Create a New Game Project
-
-```bash
 node .origami/init.cjs
 ```
 
-You'll be prompted to:
-- Enter a project name (e.g., `my-awesome-game`)
-- Choose a template:
-  - **1 = fresh**: Minimal empty project
-  - **2 = platformer**: Complete platformer with player, enemies, and collectibles
-- Enter a game title (display name for your game)
+The installer will automatically copy this engine branch into your new game project.
 
-### 3. Start Developing
+## Version
 
-```bash
-cd ../my-awesome-game
-npm run dev
-```
-
-Open http://localhost:3000 in your browser to see your game!
-
-## Development Workflow
-
-- **`npm run dev`** - Start development server with hot reload
-- **`npm run build`** - Build standalone production bundle
-- **`npm run serve`** - Serve production build
-
-## Project Structure
-
-A created game project looks like this:
-
-```
-my-game/
-├── .origami/              # Origami Engine (framework code)
-│   ├── engine/src/        # Engine TypeScript source
-│   ├── docs/              # Full documentation
-│   ├── build.cjs          # Build script
-│   ├── dev.cjs            # Dev server
-│   └── serve.cjs          # Static server
-├── data/
-│   ├── objects/           # Your game object classes (TypeScript)
-│   ├── sprites/           # Sprite assets
-│   └── rooms/             # Level/room definitions (JSON)
-├── src/
-│   └── main.ts            # Game entry point
-├── game.json              # Game configuration
-├── index.html             # HTML entry point
-└── package.json           # npm dependencies
-```
-
-## Creating Game Objects
-
-Game objects extend the `GameObject` class:
-
-```typescript
-import { GameObject } from '../.origami/engine/src/index.js';
-
-export class obj_player extends GameObject {
-  create(): void {
-    this.x = 100;
-    this.y = 100;
-    this.sprite = 'spr_player';
-  }
-
-  step(): void {
-    // WASD movement
-    if (keyboard_check(vk_w)) this.y -= 4;
-    if (keyboard_check(vk_s)) this.y += 4;
-    if (keyboard_check(vk_a)) this.x -= 4;
-    if (keyboard_check(vk_d)) this.x += 4;
-  }
-
-  draw(): void {
-    draw_self();
-  }
-}
-```
-
-## Documentation
-
-Full documentation is included in every project at `.origami/docs/`:
-
-- [Installation](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/01-installation.md)
-- [Quick Start](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/02-quick-start.md)
-- [GameObjects](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/04-gameobjects.md)
-- [API Reference](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/21-api-global-functions.md)
-
-## Updating the Engine
-
-To update the Origami Engine in an existing project:
-
-```bash
-cd my-game
-node .origami/update.cjs
-```
-
-This will fetch the latest engine version and update your `.origami/` folder while leaving your game code untouched.
-
-## Templates
-
-### Fresh Template
-- Minimal empty project structure
-- Single empty room
-- Basic engine initialization
-- Perfect for starting from scratch
-
-### Platformer Template
-- Complete working platformer game
-- Player with WASD + Space controls
-- Enemies with AI
-- Collectibles
-- Level design example
+Current version: **1.0.0**
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit issues and pull requests.
-
-## Links
-
-- [GitHub Repository](https://github.com/NicoNicoCip/Origami-Engine)
-- [Documentation](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs)
-- [Issue Tracker](https://github.com/NicoNicoCip/Origami-Engine/issues)
-
----
-
-**Version**: 1.0.0
-**Author**: NicoNicoCip
-**Inspired by**: GameMaker Studio 1.4
+MIT License - see [LICENSE](LICENSE) for details.

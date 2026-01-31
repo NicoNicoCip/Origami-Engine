@@ -1,28 +1,23 @@
 {
-  "name": "origami-engine",
-  "version": "1.0.0",
-  "description": "A GameMaker-inspired 2D game framework for TypeScript",
-  "type": "module",
-  "scripts": {
-    "create": "node .origami/init.cjs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NicoNicoCip/Origami-Engine.git"
-  },
-  "keywords": [
-    "game-engine",
-    "typescript",
-    "2d",
-    "gamemaker",
-    "canvas",
-    "game-development",
-    "browser-games"
-  ],
-  "author": "NicoNicoCip",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/NicoNicoCip/Origami-Engine/issues"
-  },
-  "homepage": "https://github.com/NicoNicoCip/Origami-Engine#readme"
+    "name": "@origami-engine/runtime",
+    "version": "1.0.0",
+    "description": "Origami Engine - Core runtime and framework",
+    "type": "module",
+    "main": "engine/src/index.ts",
+    "scripts": {
+        "update": "node update.cjs"
+    },
+    "keywords": [
+        "game-engine",
+        "typescript",
+        "2d",
+        "gamemaker",
+        "canvas"
+    ],
+    "author": "NicoNicoCip",
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^5.3.3",
+        "esbuild": "^0.19.12"
+    }
 }
