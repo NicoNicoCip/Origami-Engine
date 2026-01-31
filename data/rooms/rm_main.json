@@ -1,0 +1,26 @@
+{
+    "name": "rm_main",
+    "width": 640,
+    "height": 480,
+    "speed": 165,
+    "backgroundColor": "#87CEEB",
+    "instances": [],
+    "views": [
+        {
+            "enabled": true,
+            "xview": 0,
+            "yview": 0,
+            "wview": 640,
+            "hview": 480,
+            "xport": 0,
+            "yport": 0,
+            "wport": 640,
+            "hport": 480,
+            "hborder": 200,
+            "vborder": 150,
+            "hspeed": -1,
+            "vspeed": -1,
+            "object": null
+        }
+    ]
+}

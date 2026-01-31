@@ -1,96 +1,96 @@
-# Origami Engine
+# {{GAME_TITLE}}
 
-A GameMaker-inspired 2D game framework for TypeScript and the browser.
+A platformer game built with [Origami Engine](https://github.com/NicoNicoCip/Origami-Engine).
 
 ## Features
 
-- **TypeScript-First**: Full type safety and IntelliSense support
-- **GameMaker-Style API**: Familiar `create()`, `step()`, `draw()` events and global functions
-- **Canvas 2D Rendering**: Hardware-accelerated 2D graphics
-- **No Dependencies**: Pure TypeScript, runs in any modern browser
-- **Template System**: Quick start with fresh or platformer templates
-- **Hot Reload**: Fast development with instant recompilation
+- **Player Movement**: WASD keys for movement, Space to jump
+- **Platforming Physics**: Gravity, jumping, collision detection
+- **Enemies**: AI-controlled patrolling enemies
+- **Collectibles**: Bobbing collectibles with respawn mechanic
+- **Level Design**: Complete level with platforms and obstacles
 
-## Quick Start
+## Controls
 
-### 1. Clone the Repository
+- **W/A/S/D** - Move player
+- **Space** - Jump
+- **F3** - Toggle debug overlay
 
-```bash
-git clone https://github.com/NicoNicoCip/Origami-Engine.git
-cd Origami-Engine
-```
+## Getting Started
 
-### 2. Create a New Game Project
+### Development
 
 ```bash
-node .origami/init.cjs
-```
-
-You'll be prompted to:
-- Enter a project name (e.g., `my-awesome-game`)
-- Choose a template:
-  - **1 = fresh**: Minimal empty project
-  - **2 = platformer**: Complete platformer with player, enemies, and collectibles
-- Enter a game title (display name for your game)
-
-### 3. Start Developing
-
-```bash
-cd ../my-awesome-game
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser to see your game!
+Open http://localhost:3000 in your browser.
 
-## Development Workflow
+### Building
 
-- **`npm run dev`** - Start development server with hot reload
-- **`npm run build`** - Build standalone production bundle
-- **`npm run serve`** - Serve production build
+```bash
+npm run build
+```
+
+Creates a standalone bundle in `build/game.js`.
+
+### Serving Production Build
+
+```bash
+npm run serve
+```
 
 ## Project Structure
 
-A created game project looks like this:
-
 ```
-my-game/
-├── .origami/              # Origami Engine (framework code)
-│   ├── engine/src/        # Engine TypeScript source
-│   ├── docs/              # Full documentation
-│   ├── build.cjs          # Build script
-│   ├── dev.cjs            # Dev server
-│   └── serve.cjs          # Static server
+├── .origami/          # Origami Engine (framework code)
 ├── data/
-│   ├── objects/           # Your game object classes (TypeScript)
-│   ├── sprites/           # Sprite assets
-│   └── rooms/             # Level/room definitions (JSON)
+│   ├── objects/       # Game objects (player, wall, enemy, collectible)
+│   ├── sprites/       # Sprite assets
+│   └── rooms/         # Level definitions
 ├── src/
-│   └── main.ts            # Game entry point
-├── game.json              # Game configuration
-├── index.html             # HTML entry point
-└── package.json           # npm dependencies
+│   └── main.ts        # Game entry point
+├── game.json          # Game configuration
+└── index.html         # HTML entry point
 ```
 
-## Creating Game Objects
+## Game Objects
 
-Game objects extend the `GameObject` class:
+### obj_player
+- WASD movement with 4 pixels/frame speed
+- Jump with Space (12 pixel jump force)
+- Gravity (0.5 pixels/frame²)
+- Collision with walls
 
+### obj_wall
+- Solid collision object
+- Static (no movement)
+
+### obj_collectible
+- Bobbing animation (sine wave)
+- Respawns 3 seconds after collection
+- Collision detection with player
+
+### obj_enemy
+- Horizontal patrol movement
+- Changes direction every 3 seconds
+- Affected by gravity
+
+## Customizing
+
+### Adding New Objects
+
+1. Create new TypeScript class in `data/objects/`:
 ```typescript
 import { GameObject } from '../.origami/engine/src/index.js';
 
-export class obj_player extends GameObject {
+export class obj_newobject extends GameObject {
   create(): void {
-    this.x = 100;
-    this.y = 100;
-    this.sprite = 'spr_player';
+    // Initialize properties
   }
 
   step(): void {
-    // WASD movement
-    if (keyboard_check(vk_w)) this.y -= 4;
-    if (keyboard_check(vk_s)) this.y += 4;
-    if (keyboard_check(vk_a)) this.x -= 4;
-    if (keyboard_check(vk_d)) this.x += 4;
+    // Game logic
   }
 
   draw(): void {
@@ -99,57 +99,50 @@ export class obj_player extends GameObject {
 }
 ```
 
-## Documentation
-
-Full documentation is included in every project at `.origami/docs/`:
-
-- [Installation](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/01-installation.md)
-- [Quick Start](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/02-quick-start.md)
-- [GameObjects](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/04-gameobjects.md)
-- [API Reference](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs/md/21-api-global-functions.md)
-
-## Updating the Engine
-
-To update the Origami Engine in an existing project:
-
-```bash
-cd my-game
-node .origami/update.cjs
+2. Register in `src/main.ts`:
+```typescript
+import { obj_newobject } from '../data/objects/obj_newobject.js';
+engine.registerObject(obj_newobject);
 ```
 
-This will fetch the latest engine version and update your `.origami/` folder while leaving your game code untouched.
+3. Add to `game.json`:
+```json
+{
+  "objects": ["obj_player", "...", "obj_newobject"]
+}
+```
 
-## Templates
+### Creating Sprites
 
-### Fresh Template
-- Minimal empty project structure
-- Single empty room
-- Basic engine initialization
-- Perfect for starting from scratch
+1. Create folder: `data/sprites/spr_newsprite/`
+2. Add frames: `frame_0.png`, `frame_1.png`, etc.
+3. Add metadata.json:
+```json
+{
+  "origin": { "x": 16, "y": 16 },
+  "frames": 1,
+  "fps": 10
+}
+```
+4. Add to game.json: `"sprites": ["...", "spr_newsprite"]`
 
-### Platformer Template
-- Complete working platformer game
-- Player with WASD + Space controls
-- Enemies with AI
-- Collectibles
-- Level design example
+### Editing Rooms
+
+Edit `data/rooms/room_level1.json` to change:
+- Room size
+- Background color
+- Instance placement
+- Camera/view settings
+
+## Documentation
+
+Full Origami Engine documentation is available in `.origami/docs/`.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+This game template is part of the Origami Engine project and is licensed under the MIT License.
 
-## Contributing
+## Learn More
 
-Contributions are welcome! Please feel free to submit issues and pull requests.
-
-## Links
-
-- [GitHub Repository](https://github.com/NicoNicoCip/Origami-Engine)
+- [Origami Engine](https://github.com/NicoNicoCip/Origami-Engine)
 - [Documentation](https://github.com/NicoNicoCip/Origami-Engine/tree/engine/docs)
-- [Issue Tracker](https://github.com/NicoNicoCip/Origami-Engine/issues)
-
----
-
-**Version**: 1.0.0
-**Author**: NicoNicoCip
-**Inspired by**: GameMaker Studio 1.4

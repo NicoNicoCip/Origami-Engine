@@ -1,0 +1,28 @@
+{
+    "title": "{{GAME_TITLE}}",
+    "width": 640,
+    "height": 480,
+    "sprites": [
+        "spr_player",
+        "spr_wall",
+        "spr_collectible",
+        "spr_enemy"
+    ],
+    "backgrounds": [],
+    "sounds": [],
+    "fonts": [],
+    "scripts": [],
+    "paths": [],
+    "timelines": [],
+    "shaders": [],
+    "objects": [
+        "obj_player",
+        "obj_wall",
+        "obj_collectible",
+        "obj_enemy"
+    ],
+    "rooms": [
+        "room_level1"
+    ],
+    "startRoom": "room_level1"
+}
