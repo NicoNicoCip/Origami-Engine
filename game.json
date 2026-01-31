@@ -1,0 +1,18 @@
+{
+    "title": "Test Fresh Game",
+    "width": 640,
+    "height": 480,
+    "sprites": [],
+    "backgrounds": [],
+    "sounds": [],
+    "fonts": [],
+    "scripts": [],
+    "paths": [],
+    "timelines": [],
+    "shaders": [],
+    "objects": [],
+    "rooms": [
+        "rm_main"
+    ],
+    "startRoom": "rm_main"
+}
