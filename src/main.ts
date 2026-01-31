@@ -18,7 +18,7 @@ async function startGame() {
         const engine = new GameEngine({
             canvas,
             assetsPath: './data',
-            gameId: 'test-fresh-game',
+            gameId: '{{PROJECT_NAME}}',
             startRoom: gameConfig.startRoom,
         });
 

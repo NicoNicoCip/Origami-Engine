@@ -1,5 +1,5 @@
 {
-    "title": "Test Fresh Game",
+    "title": "{{GAME_TITLE}}",
     "width": 640,
     "height": 480,
     "sprites": [],
